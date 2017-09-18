@@ -11,14 +11,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Lista de clientes</title>
     </head>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-        <h1>Hello World!</h1>
-        <c:forEach var="a" items="${accounts}">
-           |${a.id}| |${a.username}| |${a.email}| 
-           <a onclick="return confirm('Esta seguro?')" href="ClienteServlet?action=delete&id=${a.id}">Delete</a>        
+        <h1>Lista de clientes</h1>
+        <c:forEach var="a" items="${clientes}">
+           |${a.typedoc}| |${a.numdoc}| |${a.nombre}||${a.telefono}||${a.email}|||${a.direccion}|
+           <a onclick="return confirm('Esta seguro?')" href="ClienteServlet?action=delete&id=${a.numdoc}">Delete</a>        
            <hr/>
         </c:forEach>        
         

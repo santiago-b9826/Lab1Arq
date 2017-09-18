@@ -15,11 +15,10 @@
     </head>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-        <h1>Hello World!</h1>
-        <c:forEach var="a" items="${accounts}">
-           |${a.id}| |${a.username}| |${a.email}| 
-           <a onclick="return confirm('Esta seguro?')" href="VehiculoServlet?action=delete&id=${a.id}">Delete</a>
-           <a onclick="return confirm('Esta seguro?')" href="VehiculoServlet?action=delete&id=${a.id}">Ingresar Imagen</a>
+        <h1>Lista de Vehiculos</h1>
+        <c:forEach var="a" items="${vehiculos}">
+           |${a.placa}| |${a.ciudad}| |${a.modelo}||${a.marca}||${a.referencia}||${a.precio}||${a.especificaciones}||${a.color}||${a.image}|
+           <a onclick="return confirm('Esta seguro?')" href="VehiculoServlet?action=delete&id=${a.placa}">Delete</a>
            <hr/>
         </c:forEach>        
         

@@ -21,23 +21,53 @@
         <jsp:include page="menu.jsp"></jsp:include>
         <h1>Hello World!</h1>
         <div class="container well">
-            <form action="AccountServlet?action=insert" method="post">
+            <form action="VehiculoServlet?action=insert" method="post">
 
                 <table>
                     <tr>
-                        <th>  <label><b>Username:</b></label> </th>
+                        <th>  <label><b>Placa:</b></label> </th>
                         <th> 
-                            <input type="text" placeholder="Enter Username" class="form-control" name="username" required=""/>
+                            <input type="text"  class="form-control" name="placa" required=""/>
                         </th>
                     </tr>
                     <tr>
-                        <th> <label><b>Password:</b></label></th>
-                        <th><input type="password" placeholder="Enter Password" class="form-control" name="password"
+                        <th> <label><b>Ciudad:</b></label></th>
+                        <th><input type="text" class="form-control" name="ciudad"
                                    required=""/> </th>
                     </tr>
                     <tr>
-                        <th> <label><b>Email:</b></label></th>
-                        <th><input type="email" placeholder="Enter Email" class="form-control" name="email"
+                        <th> <label><b>Modelo:</b></label></th>
+                        <th><input type="text" class="form-control" name="modelo"
+                                   required=""/> </th>
+                    </tr>
+                    <tr>
+                        <th> <label><b>Marca:</b></label></th>
+                        <th><input type="text" class="form-control" name="marca"
+                                   required=""/> </th>
+                    </tr>
+                    <tr>
+                        <th> <label><b>Referencia:</b></label></th>
+                        <th><input type="text"  class="form-control" name="referencia"
+                                   required=""/> </th>
+                    </tr>
+                    <tr>
+                        <th> <label><b>Precio:</b></label></th>
+                        <th><input type="text"  class="form-control" name="precio"
+                                   required=""/> </th>
+                    </tr>
+                    <tr>
+                        <th> <label><b>Especificaciones:</b></label></th>
+                        <th><input type="text"  class="form-control" name="especificaciones"
+                                   required=""/> </th>
+                    </tr>
+                    <tr>
+                        <th> <label><b>Color:</b></label></th>
+                        <th><input type="text"  class="form-control" name="color"
+                                   required=""/> </th>
+                    </tr>
+                    <tr>
+                        <th> <label><b>Seleccione la imagen deseada:</b></label></th>
+                        <th><input type="file" class="form-control" size="1024" name="file"
                                    required=""/> </th>
                     </tr>
 
