@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>ConcesionarioServlet</servlet-name>
+        <servlet-class>com.udea.servlet.ClienteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VehiculoServlet</servlet-name>
+        <servlet-class>com.udea.servlet.VehiculoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VentasServlet</servlet-name>
+        <servlet-class>com.udea.servlet.VentasServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccountServlet</servlet-name>
+        <servlet-class>com.udea.servlet.AccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConcesionarioServlet</servlet-name>
+        <url-pattern>/ConcesionarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VehiculoServlet</servlet-name>
+        <url-pattern>/VehiculoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VentasServlet</servlet-name>
+        <url-pattern>/VentasServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountServlet</servlet-name>
+        <url-pattern>/AccountServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
