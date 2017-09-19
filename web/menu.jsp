@@ -5,12 +5,13 @@
 </c:if>
 
 <c:if test="${not empty login}">
-    <a href="AccountServlet?action=logout">Logout</a>
-    <a href="AccountServlet?action=list">ListClientes</a>
-    <a href="AccountServlet?action=list">ListVehiculos</a>
-    <a href="AccountServlet?action=list">ListVentas</a>
-    <a href="insertClient.jsp">Inserte un vehiculo</a>
-    <a href="insertVehiculo.jsp">Inserte una venta</a>
-    <a href="insertVenta.jsp">Inserte un cliente</a>
+    <a href="AccountServlet?action=logout">Cerrar sesión ||</a>
+    <a href="ClienteServlet?action=list">Listar Clientes ||</a>
+    <a href="VehiculoServlet?action=list">Listar Vehiculos ||</a>
+    <a href="VentasServlet?action=list">Listar Ventas ||</a>
+    <a href="insertClient.jsp">Inserte un cliente ||</a>
+    <a href="insertVehiculo.jsp">Inserte un vehiculo ||</a>
+    <a href="insertVenta.jsp">Inserte una venta ||</a>
+    <a href="buscarVehiculo.jsp">Búsqueda de vehiculo ||</a>
 </c:if>
 <hr/>

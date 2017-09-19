@@ -31,7 +31,11 @@ import javax.validation.ValidationException;
  * @author Santiago Bedoya Betancur
  * @author Andrés Moreno Gonzáles
  */
-@WebServlet(name = "FileUploadServlet", urlPatterns = {"/upload"})
+@WebServlet(
+        name = "Servlet",
+        urlPatterns = {"/url"},
+        loadOnStartup = 1
+)
 @MultipartConfig
 public class VehiculoServlet extends HttpServlet {
 
@@ -53,7 +57,7 @@ public class VehiculoServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String action = request.getParameter("action");
-            String url = "index.jsp";
+            String url = "manager.jsp";
             if ("list".equals(action)) {
                 List<Vehiculo> findAll = vehiculoFacade.findAll();
                 request.getSession().setAttribute("vehiculos", findAll);
@@ -71,35 +75,28 @@ public class VehiculoServlet extends HttpServlet {
                 v.setPrecio(Float.parseFloat(request.getParameter("precio")));
                 v.setReferencia(request.getParameter("referencia"));
                 //process only if its multipart content
-                v.setImage(VehiculoServlet.this.getMultipartValue(request, "file"));
+                Part part = request.getPart("image");
+                InputStream is = part.getInputStream();
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                int nRead;
+                byte[] data = new byte[16384];
+                while ((nRead = is.read(data, 0, data.length)) != -1) {
+                    buffer.write(data, 0, nRead);
+                }
+                buffer.flush();
+                v.setImage(buffer.toByteArray());
                 vehiculoFacade.create(v);
-                url = "index.jsp";
+                url = "manager.jsp";
             } else if ("delete".equals(action)) {
                 String placa = request.getParameter("placa");
                 Vehiculo v = vehiculoFacade.find(Integer.valueOf(placa));
                 vehiculoFacade.remove(v);
                 url = "VehiculoServlet?action=list";
-            } else if ("edit".equals(action)) {
+            } else if ("buscar".equals(action)) {
                 String placa = request.getParameter("placa");
                 Vehiculo v = vehiculoFacade.find(Integer.valueOf(placa));
-                vehiculoFacade.remove(v);
-                VehiculoPK vpk = new VehiculoPK();
-                vpk.setCiudad(request.getParameter("placa"));
-                vpk.setPlaca(request.getParameter("ciudad"));
-                v.setVehiculoPK(vpk);
-                v.setColor(request.getParameter("color"));
-                v.setEspecificaciones(request.getParameter("especificaciones").getBytes());
-                v.setMarca(request.getParameter("marca"));
-                v.setModelo(Integer.parseInt(request.getParameter("modelo")));
-                v.setPrecio(Float.parseFloat(request.getParameter("precio")));
-                v.setReferencia(request.getParameter("referencia"));
-                //process only if its multipart content
-                v.setImage(VehiculoServlet.this.getMultipartValue(request, "file"));
-                vehiculoFacade.create(v);
-                url = "VehiculoServlet?action=list";
-            }else if("search".equals(action)){
-                String placa = request.getParameter("placa");
-                Vehiculo v = vehiculoFacade.find(Integer.valueOf(placa));
+                request.getSession().setAttribute("vehiculos", v);
+                url = "listVehiculos.jsp";
             }
             response.sendRedirect(url);
         } finally {

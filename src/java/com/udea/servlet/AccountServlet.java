@@ -66,7 +66,7 @@ public class AccountServlet extends HttpServlet {
                 url="login.jsp";
                                                    
                 }else if("delete".equals(action)){
-                    String id= request.getParameter("id");
+                    String id = request.getParameter("id");
                     Account a = accountFacade.find(Integer.valueOf(id));
                     accountFacade.remove(a);
                     url="AccountServlet?action=list";

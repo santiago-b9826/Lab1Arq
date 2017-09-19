@@ -45,27 +45,38 @@ public class ClienteServlet extends HttpServlet {
         try {
             String action = request.getParameter("action");
             String url = "index.jsp";
-            if ("list".equals(action)) {
-                List<Cliente> findAll = clienteFacade.findAll();
-                request.getSession().setAttribute("clientes", findAll);
-                url = "listClientes.jsp";
-            } else if ("insert".equals(action)) {
-                Cliente c = new Cliente();
-                ClientePK cpk = new ClientePK();
-                cpk.setTipoDocumento(request.getParameter("typedoc"));
-                cpk.setNumDocumento(Integer.valueOf(request.getParameter("numdoc")));
-                c.setNombre(request.getParameter("nombre"));
-                c.setTelefono(Integer.valueOf(request.getParameter("telefono")));
-                c.setEmail(request.getParameter("email"));
-                c.setDireccion(request.getParameter("direccion"));
-                c.setClientePK(cpk);
-                clienteFacade.create(c);
-                url = "index.jsp";
-            } else if ("delete".equals(action)) {
-                String id = request.getParameter("numDocumento");
-                Cliente c = clienteFacade.find(Integer.valueOf(id));
-                clienteFacade.remove(c);
-                url = "ClienteServlet?action=list";
+            if (null != action) {
+                switch (action) {
+                    case "list":
+                        List<Cliente> findAll = clienteFacade.findAll();
+                        request.getSession().setAttribute("clientes", findAll);
+                        url = "listClientes.jsp";
+                        break;
+                    case "insert": {
+                        Cliente c = new Cliente();
+                        ClientePK cpk = new ClientePK();
+                        cpk.setTipoDocumento(request.getParameter("tipodoc"));
+                        cpk.setNumDocumento(Integer.valueOf(request.getParameter("numdoc")));
+                        c.setClientePK(cpk);
+                        c.setNombre(request.getParameter("nombre"));
+                        c.setTelefono(Integer.valueOf(request.getParameter("telefono")));
+                        c.setEmail(request.getParameter("email"));
+                        c.setDireccion(request.getParameter("direccion"));
+                        clienteFacade.create(c);
+                        url = "index.jsp";
+                        break;
+                    }
+                    case "delete": {
+                        int numDocumento = Integer.parseInt(request.getParameter("numDocumento"));
+                        String tipoDocumento = request.getParameter("tipoDocumento");
+                        Cliente c = clienteFacade.find(new ClientePK(tipoDocumento,numDocumento));
+                        clienteFacade.remove(c);
+                        url = "ClienteServlet?action=list";
+                        break;
+                    }
+                    default:
+                        break;
+                }
             }
             response.sendRedirect(url);
         } finally {

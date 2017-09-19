@@ -19,7 +19,7 @@
     </head>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-        <h1>Instrucciones de inserción</h1>
+        <h1>Por favor llene todos los campos adecuadamente</h1>
         <div class="container well">
             <form action="ClienteServlet?action=insert" method="post">
 
@@ -27,32 +27,32 @@
                     <tr>
                         <th>  <label><b>Tipo de documento:</b></label> </th>
                         <th> 
-                            <input type="text" placeholder="Enter Type of Document" class="form-control" name="" required=typedoc""/>
+                            <input type="text"  class="form-control" name="tipodoc" required=""/>
                         </th>
                     </tr>
                     <tr>
                         <th> <label><b>Número de documento:</b></label></th>
-                        <th><input type="text" placeholder="Enter Number of Document" class="form-control" name="numdoc"
+                        <th><input type="number"  class="form-control" name="numdoc"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Nombre:</b></label></th>
-                        <th><input type="text" placeholder="Enter Name" class="form-control" name="nombre"
+                        <th><input type="text"  class="form-control" name="nombre"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Dirección:</b></label></th>
-                        <th><input type="text" placeholder="Enter Email" class="form-control" name="direccion"
+                        <th><input type="text"  class="form-control" name="direccion"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Telefono:</b></label></th>
-                        <th><input type="text" placeholder="Enter Email" class="form-control" name="telefono"
+                        <th><input type="number" p class="form-control" name="telefono"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Email:</b></label></th>
-                        <th><input type="email" placeholder="Enter Email" class="form-control" name="email"
+                        <th><input type="email"  class="form-control" name="email"
                                    required=""/> </th>
                     </tr>
 

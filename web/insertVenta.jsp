@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Inserción de ventas</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
         <!-- Optional theme -->
@@ -19,7 +19,7 @@
     </head>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-        <h1>Hello World!</h1>
+        <h1>Por favor llene todos los campos adecuadamente</h1>
         <div class="container well">
             <form action="VentasServlet?action=insert" method="post">
 
@@ -27,32 +27,32 @@
                     <tr>
                         <th>  <label><b>Placa y ciudad:</b></label> </th>
                         <th> 
-                            <input type="text" placeholder="Enter Username" class="form-control" name="placaciudad" required=""/>
+                            <input type="text"  class="form-control" name="placaciudad" required=""/>
                         </th>
                     </tr>
                     <tr>
                         <th> <label><b>Número de documento:</b></label></th>
-                        <th><input type="password" placeholder="Enter Password" class="form-control" name="numdoc"
+                        <th><input type="number"  class="form-control" name="numdoc"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Número de venta:</b></label></th>
-                        <th><input type="email" placeholder="Enter Email" class="form-control" name="numventa"
+                        <th><input type="number"  class="form-control" name="numventa"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Total venta:</b></label></th>
-                        <th><input type="email" placeholder="Enter Email" class="form-control" name="totalventa"
+                        <th><input type="number"  class="form-control" name="totalventa"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Cantidad:</b></label></th>
-                        <th><input type="email" placeholder="Enter Email" class="form-control" name="cantidad"
+                        <th><input type="number" class="form-control" name="cantidad"
                                    required=""/> </th>
                     </tr>
                     <tr>
                         <th> <label><b>Fecha:</b></label></th>
-                        <th><input type="date" placeholder="Enter Email" class="form-control" name="fecha"
+                        <th><input type="date"class="form-control" name="fecha"
                                    required=""/> </th>
                     </tr>
 

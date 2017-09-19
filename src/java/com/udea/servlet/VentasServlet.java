@@ -6,6 +6,7 @@
 package com.udea.servlet;
 
 import com.udea.ejb.VentasFacadeLocal;
+import com.udea.entity.Cliente;
 import com.udea.entity.Ventas;
 import com.udea.entity.VentasPK;
 import java.io.IOException;
@@ -46,20 +47,34 @@ public class VentasServlet extends HttpServlet {
         try {
             String action = request.getParameter("action");
             String url = "index.jsp";
-            if ("list".equals(action)) {
-                List<Ventas> findAll = ventasFacade.findAll();
-                request.getSession().setAttribute("ventas", findAll);
-                url = "listVentas.jsp";
-            } else if ("insert".equals(action)) {
-                Ventas v = new Ventas();
-                VentasPK vpk = new VentasPK();
-                vpk.setNumDocumento(Integer.getInteger(request.getParameter("numdoc")));
-                vpk.setNumVenta(Integer.getInteger(request.getParameter("numventa")));
-                v.setFecha(Date.valueOf(request.getParameter("fecha")));
-                v.setCantidad(Integer.valueOf(request.getParameter("cantidad")));
-                v.setPlacaCiudad(request.getParameter("placaciudad"));
-                v.setTotalVenta(Float.valueOf(request.getParameter("totalventa")));
-                url = "index.jsp";
+            if (null != action) switch (action) {
+                case "list":
+                    List<Ventas> findAll = ventasFacade.findAll();
+                    request.getSession().setAttribute("ventas", findAll);
+                    url = "listVentas.jsp";
+                    break;
+                case "insert":
+                    Ventas v = new Ventas();
+                    VentasPK vpk = new VentasPK();
+                    vpk.setNumDocumento(Integer.parseInt(request.getParameter("numdoc")));
+                    vpk.setNumVenta(Integer.parseInt(request.getParameter("numventa")));
+                    v.setVentasPK(vpk);
+                    v.setFecha(Date.valueOf(request.getParameter("fecha")));
+                    v.setCantidad(Integer.valueOf(request.getParameter("cantidad")));
+                    v.setPlacaCiudad(request.getParameter("placaciudad"));
+                    v.setTotalVenta(Float.valueOf(request.getParameter("totalventa")));
+                    ventasFacade.create(v);
+                    url = "index.jsp";
+                    break;
+                case "delete":                    
+                int numDocumento = Integer.parseInt(request.getParameter("numDocumento"));
+                int numVenta = Integer.parseInt(request.getParameter("numVenta"));    
+                Ventas v1 = ventasFacade.find(new VentasPK(numDocumento, numVenta));
+                ventasFacade.remove(v1);
+                url = "VentasServlet?action=list";
+                    break;
+                default:
+                    break;
             }
             response.sendRedirect(url);
         } finally {

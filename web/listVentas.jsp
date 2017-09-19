@@ -17,8 +17,9 @@
         <jsp:include page="menu.jsp"></jsp:include>
         <h1>Lista de Ventas</h1>
         <c:forEach var="a" items="${ventas}">
-           |${a.placaciudad}| |${a.numdocumento}| |${a.numventa}||${a.totalventa}||${a.cantidad}||${a.fecha}|
-           <a onclick="return confirm('Esta seguro?')" href="VentasServlet?action=delete&id=${a.placaciudad}">Delete</a>        
+           |${a.placaCiudad}| |${a.ventasPK.numDocumento}||${a.ventasPK.numVenta}||${a.totalVenta}||${a.cantidad}||${a.fecha}|
+           <a onclick="return confirm('Esta seguro?')" href="VentasServlet?action=delete&numDocumento=${a.ventasPK.numDocumento}&numVenta=${a.ventasPK.numVenta}" >
+               Delete</a>        
            <hr/>
         </c:forEach>        
         

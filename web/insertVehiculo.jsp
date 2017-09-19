@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Inserción de vehiculo</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
         <!-- Optional theme -->
@@ -19,9 +19,9 @@
     </head>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-        <h1>Hello World!</h1>
+        <h1>Por favor llene todos los campos adecuadamente</h1>
         <div class="container well">
-            <form action="VehiculoServlet?action=insert" method="post">
+            <form action="VehiculoServlet?action=insert" method="post" enctype="multipart/form-data">
 
                 <table>
                     <tr>
@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <th> <label><b>Modelo:</b></label></th>
-                        <th><input type="text" class="form-control" name="modelo"
+                        <th><input type="number" class="form-control" name="modelo"
                                    required=""/> </th>
                     </tr>
                     <tr>
@@ -52,7 +52,7 @@
                     </tr>
                     <tr>
                         <th> <label><b>Precio:</b></label></th>
-                        <th><input type="text"  class="form-control" name="precio"
+                        <th><input type="number"  class="form-control" name="precio"
                                    required=""/> </th>
                     </tr>
                     <tr>

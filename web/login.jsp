@@ -17,26 +17,26 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-        <title>JSP Page</title>
+        <title>Logeo</title>
     </head>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-            <h1>Hello World!</h1>
+            <h1>Bienvenido por favor llene los campos solicitados</h1>
         <c:if test="${param.error==1}">
             <font color="red">Usuario Invalido. Intentelo de nuevo</font>
         </c:if>     
         <div class="container well">
-            <h1>Contact Information</h1>
+            <h1>Información de logeo</h1>
             <form action="AccountServlet?action=login" method="post">
                 <table>
                     <tr>
-                        <th>  <label><b>Username:</b></label> </th>
+                        <th>  <label><b>Nombre de usuario:</b></label> </th>
                         <th> 
                             <input type="text" placeholder="Enter Username" class="form-control" name="username" required=""/>
                         </th>
                     </tr>
                     <tr>
-                        <th> <label><b>Password:</b></label></th>
+                        <th> <label><b>Contraseña:</b></label></th>
                         <th><input type="password" placeholder="Enter Password" class="form-control" name="password"
                                    required=""/> </th>
                     </tr>
