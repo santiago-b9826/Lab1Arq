@@ -12,6 +12,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +30,6 @@ import javax.servlet.http.Part;
  * @author Santiago Bedoya Betancur
  * @author Andrés Moreno Gonzáles
  */
-
 @MultipartConfig
 public class VehiculoServlet extends HttpServlet {
 
@@ -51,47 +52,57 @@ public class VehiculoServlet extends HttpServlet {
         try {
             String action = request.getParameter("action");
             String url = "manager.jsp";
-            if (null != action) switch (action) {
-                case "list":
-                    List<Vehiculo> findAll = vehiculoFacade.findAll();
-                    request.getSession().setAttribute("vehiculos", findAll);
-                    url = "listVehiculos.jsp";
-                    break;
-                case "insert":{
-                    Vehiculo v = new Vehiculo();
-                    VehiculoPK vpk = new VehiculoPK();
-                    vpk.setCiudad(request.getParameter("ciudad"));
-                    vpk.setPlaca(request.getParameter("placa"));
-                    v.setVehiculoPK(vpk);
-                    v.setColor(request.getParameter("color"));
-                    v.setEspecificaciones(request.getParameter("especificaciones").getBytes());
-                    v.setMarca(request.getParameter("marca"));
-                    v.setModelo(Integer.parseInt(request.getParameter("modelo")));
-                    v.setPrecio(Float.parseFloat(request.getParameter("precio")));
-                    v.setReferencia(request.getParameter("referencia"));
-                    Part part = request.getPart("file");
-                    InputStream is = part.getInputStream();
-                    v.setImage(VehiculoServlet.readFully(is));
-                    vehiculoFacade.create(v);
-                    url = "manager.jsp";
+            if (null != action) {
+                switch (action) {
+                    case "list":
+                        List<Vehiculo> findAll = vehiculoFacade.findAll();
+                        request.getSession().setAttribute("vehiculos", findAll);
+                        url = "listVehiculos.jsp";
+                        break;
+                    case "insert": {
+                        Vehiculo v = new Vehiculo();
+                        VehiculoPK vpk = new VehiculoPK();
+                        vpk.setCiudad(request.getParameter("ciudad"));
+                        vpk.setPlaca(request.getParameter("placa"));
+                        v.setVehiculoPK(vpk);
+                        v.setColor(request.getParameter("color"));
+                        v.setEspecificaciones(request.getParameter("especificaciones").getBytes());
+                        v.setMarca(request.getParameter("marca"));
+                        v.setModelo(Integer.parseInt(request.getParameter("modelo")));
+                        v.setPrecio(Float.parseFloat(request.getParameter("precio")));
+                        v.setReferencia(request.getParameter("referencia"));
+                        Part part = request.getPart("file");
+                        InputStream is = part.getInputStream();
+                        v.setImage(VehiculoServlet.readFully(is));
+                        vehiculoFacade.create(v);
+                        url = "manager.jsp";
                         break;
                     }
-                case "delete":{
-                    String placa = request.getParameter("placa");
-                    Vehiculo v = vehiculoFacade.find(Integer.valueOf(placa));
-                    vehiculoFacade.remove(v);
-                    url = "VehiculoServlet?action=list";
+                    case "delete": {
+                        String placa = request.getParameter("placa");
+                        Vehiculo v = vehiculoFacade.find(Integer.valueOf(placa));
+                        vehiculoFacade.remove(v);
+                        url = "VehiculoServlet?action=list";
                         break;
                     }
-                case "buscar":{
-                    String placa = request.getParameter("placa");
-                    Vehiculo v = vehiculoFacade.find(Integer.valueOf(placa));
-                    request.getSession().setAttribute("vehiculos", v);
-                    url = "listVehiculos.jsp";
+                    case "buscar": {
+                        String placa = request.getParameter("placa");
+                        List<Vehiculo> findAllf = vehiculoFacade.findAll();
+                        Vehiculo v = new Vehiculo();
+                        for (Vehiculo vehiculo : findAllf) {
+                            if(vehiculo.getVehiculoPK().getPlaca().equals(placa)){
+                                v = vehiculo;
+                            }
+                        }
+                        List<Vehiculo> lista = new ArrayList<>();
+                        lista.add(v);
+                        request.getSession().setAttribute("vehiculos", lista);
+                        url = "listVehiculos.jsp";
                         break;
                     }
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
             response.sendRedirect(url);
         } finally {
