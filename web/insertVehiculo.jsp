@@ -67,7 +67,7 @@
                     </tr>
                     <tr>
                         <th> <label><b>Seleccione la imagen deseada:</b></label></th>
-                        <th><input type="file" class="form-control" size="1024" name="file"
+                        <th><input type="file" class="form-control" size="16777216" name="file"
                                    required=""/> </th>
                     </tr>
 
@@ -75,7 +75,7 @@
                     </div>
                     <tr>
                         <td colspan="2">
-                            <input class="btn icon-btn btn-success" type="submit" name="action" value="Insertar">
+                            <input class="btn icon-btn btn-success" type="submit" name="action" value="insert">
                             <span class="glyphicon glyphicon-ok-sign"></span>
 
                             <!--            <span class="glyphicons glyphicons-user-add img-circle text-success"></span>-->
