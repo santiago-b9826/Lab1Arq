@@ -5,7 +5,12 @@
  */
 package com.udea.entity;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URLConnection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -16,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -35,6 +41,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Vehiculo.findByPrecio", query = "SELECT v FROM Vehiculo v WHERE v.precio = :precio"),
     @NamedQuery(name = "Vehiculo.findByColor", query = "SELECT v FROM Vehiculo v WHERE v.color = :color")})
 public class Vehiculo implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "especificaciones")
+    private byte[] especificaciones;
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -57,17 +72,9 @@ public class Vehiculo implements Serializable {
     @NotNull
     @Column(name = "precio")
     private float precio;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "especificaciones")
-    private byte[] especificaciones;
     @Size(max = 20)
     @Column(name = "color")
     private String color;
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
 
     public Vehiculo() {
     }
@@ -129,28 +136,12 @@ public class Vehiculo implements Serializable {
         this.precio = precio;
     }
 
-    public byte[] getEspecificaciones() {
-        return especificaciones;
-    }
-
-    public void setEspecificaciones(byte[] especificaciones) {
-        this.especificaciones = especificaciones;
-    }
-
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 
     @Override
@@ -173,9 +164,38 @@ public class Vehiculo implements Serializable {
         return true;
     }
 
+    public String getFotoBase64() throws IOException {
+        if (image != null) {
+            String mimeType;
+            try (InputStream is = new BufferedInputStream(new ByteArrayInputStream(image))) {
+                mimeType = URLConnection.guessContentTypeFromStream(is);
+            }
+            String base64 = DatatypeConverter.printBase64Binary(image);
+            System.out.println("data:" + mimeType + ";base64," + base64);
+            return "data:" + mimeType + ";base64," + base64;
+        }
+        return "";
+    }
+
     @Override
     public String toString() {
         return "com.udea.entity.Vehiculo[ vehiculoPK=" + vehiculoPK + " ]";
     }
-    
+
+    public byte[] getEspecificaciones() {
+        return especificaciones;
+    }
+
+    public void setEspecificaciones(byte[] especificaciones) {
+        this.especificaciones = especificaciones;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
 }

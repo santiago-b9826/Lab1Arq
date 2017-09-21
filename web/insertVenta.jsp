@@ -1,9 +1,4 @@
-<%-- 
-    Document   : 
-    newLogin
-    Created on : 11/01/2017, 08:56:35 PM
-    Author     : Usuario
---%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -1,9 +1,4 @@
-<%-- 
-    Document   : 
-    newLogin
-    Created on : 11/01/2017, 08:56:35 PM
-    Author     : Usuario
---%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +22,7 @@
                     <tr>
                         <th>  <label><b>Tipo de documento:</b></label> </th>
                         <th> 
-                            <input type="text"  class="form-control" name="tipodoc" required=""/>
+                            <input type="text" maxlength="5" class="form-control" name="tipodoc" required=""/>
                         </th>
                     </tr>
                     <tr>

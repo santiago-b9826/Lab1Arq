@@ -1,8 +1,3 @@
-<%-- 
-    Document   : listVehiculos
-    Created on : 17/09/2017, 12:40:44 PM
-    Author     : Santiago
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -39,16 +34,16 @@
             </thead>
         <c:forEach var="a" items="${vehiculos}">
         <tr>
-            <td>${a.vehiculoPK.placa}</td>
-            <td>${a.vehiculoPK.ciudad}</td>
+            <td>${a.placa}</td>
+            <td>${a.ciudad}</td>
             <td>${a.modelo}</td>
             <td>${a.marca}</td>
             <td>${a.referencia}</td>
             <td>${a.precio}</td>
             <td>${a.especificaciones}</td>
             <td>${a.color}</td>
-            <td>${a.image}</td>
-            <td><a onclick="return confirm('Esta seguro?')" href="VehiculoServlet?action=delete&placa=${a.vehiculoPK.placa}&ciudad=${a.vehiculoPK.ciudad}">Delete</a></td>
+            <td><img src="${a.image}"/></td>
+            <td><a onclick="return confirm('Esta seguro?')" href="VehiculoServlet?action=delete&placa=${a.placa}&ciudad=${a.ciudad}">Delete</a></td>
         </tr>         
 
         <hr/>

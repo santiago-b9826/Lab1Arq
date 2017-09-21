@@ -1,9 +1,4 @@
-<%-- 
-    Document   : 
-    newLogin
-    Created on : 11/01/2017, 08:56:35 PM
-    Author     : Usuario
---%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -67,7 +62,7 @@
                     </tr>
                     <tr>
                         <th> <label><b>Seleccione la imagen deseada:</b></label></th>
-                        <th><input type="file" class="form-control" size="16777216" name="file"
+                        <th><input type="file" class="form-control"  name="file"
                                    required=""/> </th>
                     </tr>
 

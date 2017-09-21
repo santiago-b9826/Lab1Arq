@@ -46,7 +46,7 @@ public class VentasServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String action = request.getParameter("action");
-            String url = "index.jsp";
+            String url = "manager.jsp";
             if (null != action) switch (action) {
                 case "list":
                     List<Ventas> findAll = ventasFacade.findAll();
@@ -64,7 +64,7 @@ public class VentasServlet extends HttpServlet {
                     v.setPlacaCiudad(request.getParameter("placaciudad"));
                     v.setTotalVenta(Float.valueOf(request.getParameter("totalventa")));
                     ventasFacade.create(v);
-                    url = "index.jsp";
+                    url = "manager.jsp";
                     break;
                 case "delete":                    
                 int numDocumento = Integer.parseInt(request.getParameter("numDocumento"));

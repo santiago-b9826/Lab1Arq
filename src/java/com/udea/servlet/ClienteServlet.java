@@ -44,7 +44,7 @@ public class ClienteServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String action = request.getParameter("action");
-            String url = "index.jsp";
+            String url = "manager.jsp";
             if (null != action) {
                 switch (action) {
                     case "list":
@@ -63,7 +63,7 @@ public class ClienteServlet extends HttpServlet {
                         c.setEmail(request.getParameter("email"));
                         c.setDireccion(request.getParameter("direccion"));
                         clienteFacade.create(c);
-                        url = "index.jsp";
+                        url = "manager.jsp";
                         break;
                     }
                     case "delete": {

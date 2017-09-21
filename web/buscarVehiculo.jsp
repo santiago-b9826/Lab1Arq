@@ -1,8 +1,4 @@
-<%-- 
-    Document   : buscarVehiculo
-    Created on : 18/09/2017, 03:28:13 PM
-    Author     : Andrés Moreno
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

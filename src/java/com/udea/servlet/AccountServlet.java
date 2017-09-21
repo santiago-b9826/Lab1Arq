@@ -42,7 +42,7 @@ public class AccountServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {           
             String action = request.getParameter("action");
-            String url = "index.jsp";
+            String url = "manager.jsp";
             if("list".equalsIgnoreCase(action)){
             List <Account> findAll= accountFacade.findAll();
             request.getSession().setAttribute("aaccount",findAll );

@@ -5,14 +5,17 @@
  */
 package com.udea.servlet;
 
+import com.sun.prism.Image;
 import com.udea.ejb.VehiculoFacadeLocal;
 import com.udea.entity.Vehiculo;
 import com.udea.entity.VehiculoPK;
+import com.udea.extra.VehiculoDecoded;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
@@ -55,8 +58,23 @@ public class VehiculoServlet extends HttpServlet {
             if (null != action) {
                 switch (action) {
                     case "list":
-                        List<Vehiculo> findAll = vehiculoFacade.findAll();
-                        request.getSession().setAttribute("vehiculos", findAll);
+                        List<Vehiculo> vehiculos = vehiculoFacade.findAll();
+                        List<VehiculoDecoded> vehiculosDecoded = new ArrayList<>();
+                        for (Vehiculo v : vehiculos) {
+                            String placa = v.getVehiculoPK().getPlaca();
+                            String ciudad = v.getVehiculoPK().getCiudad();
+                            String especificaciones = new String(v.getEspecificaciones());
+                            //String image = new String(Base64.getDecoder().decode(new String(v.getImage()).getBytes("UTF-8")));
+                            String image = v.getFotoBase64();
+                            int modelo = v.getModelo();
+                            String marca = v.getMarca();
+                            String referencia = v.getReferencia();
+                            float precio = v.getPrecio();
+                            String color = v.getColor();
+                            VehiculoDecoded vehiculoDecoded = new VehiculoDecoded(placa, ciudad, especificaciones, image, modelo, marca, referencia, precio, color);
+                            vehiculosDecoded.add(vehiculoDecoded);
+                        }
+                        request.getSession().setAttribute("vehiculos", vehiculosDecoded);
                         url = "listVehiculos.jsp";
                         break;
                     case "insert": {
@@ -72,31 +90,52 @@ public class VehiculoServlet extends HttpServlet {
                         v.setPrecio(Float.parseFloat(request.getParameter("precio")));
                         v.setReferencia(request.getParameter("referencia"));
                         Part part = request.getPart("file");
-                        InputStream is = part.getInputStream();
-                        v.setImage(VehiculoServlet.readFully(is));
+                        if (part != null && part.getSize() != 0) {
+                            InputStream is = part.getInputStream();
+                            byte[] buffer = new byte[is.available()];
+                            is.read(buffer);
+                            is.close();
+                            v.setImage(buffer);
+                        } else {
+                            v.setImage(null);
+                        }
                         vehiculoFacade.create(v);
                         url = "manager.jsp";
                         break;
                     }
                     case "delete": {
                         String placa = request.getParameter("placa");
-                        Vehiculo v = vehiculoFacade.find(Integer.valueOf(placa));
+                        String ciudad = request.getParameter("ciudad");
+                        Vehiculo v = vehiculoFacade.find(new VehiculoPK(placa, ciudad));
                         vehiculoFacade.remove(v);
                         url = "VehiculoServlet?action=list";
                         break;
                     }
-                    case "buscar": {
+                    case "buscar": {                        
                         String placa = request.getParameter("placa");
                         List<Vehiculo> findAllf = vehiculoFacade.findAll();
                         Vehiculo v = new Vehiculo();
                         for (Vehiculo vehiculo : findAllf) {
-                            if(vehiculo.getVehiculoPK().getPlaca().equals(placa)){
+                            if (vehiculo.getVehiculoPK().getPlaca().equals(placa)) {
                                 v = vehiculo;
                             }
                         }
+                        List<VehiculoDecoded> vehiculosDecodedS = new ArrayList<>();
+                        String placaD = v.getVehiculoPK().getPlaca();
+                        String ciudad = v.getVehiculoPK().getCiudad();
+                        String especificaciones = new String(v.getEspecificaciones());
+                        //String image = new String(Base64.getDecoder().decode(new String(v.getImage()).getBytes("UTF-8")));
+                        String image = v.getFotoBase64();
+                        int modelo = v.getModelo();
+                        String marca = v.getMarca();
+                        String referencia = v.getReferencia();
+                        float precio = v.getPrecio();
+                        String color = v.getColor();
+                        VehiculoDecoded vehiculoDecoded = new VehiculoDecoded(placaD, ciudad, especificaciones, image, modelo, marca, referencia, precio, color);
+                        vehiculosDecodedS.add(vehiculoDecoded);
                         List<Vehiculo> lista = new ArrayList<>();
                         lista.add(v);
-                        request.getSession().setAttribute("vehiculos", lista);
+                        request.getSession().setAttribute("vehiculos", vehiculosDecodedS);
                         url = "listVehiculos.jsp";
                         break;
                     }
@@ -108,16 +147,6 @@ public class VehiculoServlet extends HttpServlet {
         } finally {
             out.close();
         }
-    }
-
-    public static byte[] readFully(InputStream input) throws IOException {
-        byte[] buffer = new byte[16777216];
-        int bytesRead;
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        while ((bytesRead = input.read(buffer)) != -1) {
-            output.write(buffer, 0, bytesRead);
-        }
-        return output.toByteArray();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

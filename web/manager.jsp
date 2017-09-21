@@ -19,7 +19,7 @@
     </head>
     <body>
       <jsp:include page="menu.jsp"></jsp:include>
-        <h1>BIENVENIDO A LA PAGINA ${login}</h1>
+        <h1>Seleccione la tarea que desea realizar en el menú</h1>
     </body>
 </html>
 

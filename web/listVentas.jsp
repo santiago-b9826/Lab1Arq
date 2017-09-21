@@ -1,8 +1,4 @@
-<%-- 
-    Document   : listVentas
-    Created on : 17/09/2017, 12:36:59 PM
-    Author     : Santiago
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

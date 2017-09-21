@@ -1,8 +1,4 @@
-<%-- 
-    Document   : listClientes
-    Created on : 17/09/2017, 12:36:01 PM
-    Author     : Santiago
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
